@@ -38,8 +38,8 @@ public class Turma implements Serializable {
 	private List<Aluno> alunos;
 
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonProperty("disciplinas")
-	private List<Disciplina> disciplinas;
+	@JsonProperty("turma_disciplinas")
+	private List<TurmaDisciplina> turmaDisciplinas;
 
 	public List<Aluno> getAlunos() {
 		return alunos;
@@ -47,14 +47,6 @@ public class Turma implements Serializable {
 
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
-	}
-
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
-	}
-
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
 	}
 
 	public Curso getCurso() {
