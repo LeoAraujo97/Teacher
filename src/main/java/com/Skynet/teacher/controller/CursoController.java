@@ -14,7 +14,7 @@ public class CursoController {
 	@Autowired
 	private CursoService cursoServ;
 
-	@RequestMapping(value = "/Cursos/", method = RequestMethod.GET)
+	@RequestMapping(value = "/cursos/", method = RequestMethod.GET)
 	public ResponseEntity<?> ListarCursos() {
 
 		return cursoServ.ListarCursos();

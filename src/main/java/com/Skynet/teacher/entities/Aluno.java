@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -34,10 +36,12 @@ public class Aluno implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "turma_id")
+	@JsonBackReference
 	private Turma turma;
 	
 	@OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("presencas")
+	@JsonManagedReference
 	private List<PresencaAluno> presencas;
 	
 	public List<PresencaAluno> getPresencas() {

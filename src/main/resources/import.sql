@@ -20,7 +20,5 @@ insert into aula (data, disciplina_id) values ('20190105', 1)
 
 insert into presenca_aluno (presente, aluno_id, aula_id) values (false, 1, 1)
 
-insert into presenca_aluno (presente, aluno_id, aula_id) values (true, 1, 3)
-
 --insert into tb_jogador (usuario, senha, SESSAO_STATUS) values ('admin2', 'admin2', false)
 ----insert into tb_partidas (id, status) values (1, true)

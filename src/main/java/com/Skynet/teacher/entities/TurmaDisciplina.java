@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class TurmaDisciplina implements Serializable {
 
@@ -19,10 +21,12 @@ public class TurmaDisciplina implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "turma_id")
+	@JsonBackReference
 	private Turma turma;
 
 	@ManyToOne
 	@JoinColumn(name = "disciplina_id")
+	@JsonBackReference
 	private Disciplina disciplina;
 
 	public long getId() {
