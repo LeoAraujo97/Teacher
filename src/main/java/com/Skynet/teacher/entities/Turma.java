@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "Turma")
+@Table(name = "turma")
 public class Turma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,16 +27,44 @@ public class Turma implements Serializable {
 	private int Id;
 
 	@JsonProperty("ano")
-	private Date AnoInicio;
+	private Date anoInicio;
 
 	@ManyToOne
-	@JoinColumn(name = "CursoId")
-	Curso Curso;
-	
-	@OneToMany(mappedBy = "Turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "curso_id")
+	private Curso curso;
+
+	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonProperty("alunos")
+	private List<Aluno> alunos;
+
+	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("disciplinas")
-	List<Disciplina>Disciplinas;
-	
+	private List<Disciplina> disciplinas;
+
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
 	public int getId() {
 		return Id;
 	}
@@ -46,11 +74,11 @@ public class Turma implements Serializable {
 	}
 
 	public Date getAnoInicio() {
-		return AnoInicio;
+		return anoInicio;
 	}
 
 	public void setAnoInicio(Date anoInicio) {
-		AnoInicio = anoInicio;
+		this.anoInicio = anoInicio;
 	}
 
 }
