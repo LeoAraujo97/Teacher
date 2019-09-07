@@ -12,8 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -30,10 +30,12 @@ public class Disciplina implements Serializable {
 
 	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("aulas")
+	@JsonManagedReference
 	private List<Aula> aulas;
 
 	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("turma_disciplinas")
+	@JsonManagedReference
 	private List<TurmaDisciplina> turmaDisciplinas;
 
 	public List<Aula> getAulas() {

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -27,6 +28,7 @@ public class Curso implements Serializable {
 
 	@OneToMany(mappedBy = "curso", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("turmas")
+	@JsonManagedReference
 	List<Turma> turmas;
 
 	public int getid() {

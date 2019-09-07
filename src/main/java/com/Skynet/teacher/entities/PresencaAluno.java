@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -24,11 +25,13 @@ public class PresencaAluno implements Serializable {
 	@ManyToOne
 	@JsonProperty("aluno")
 	@JoinColumn(name = "aluno_id")
+	@JsonBackReference
 	private Aluno aluno;
 
 	@ManyToOne
 	@JsonProperty("aula")
 	@JoinColumn(name = "aula_id")
+	@JsonBackReference
 	private Aluno aula;
 
 	@JsonProperty("presente")
