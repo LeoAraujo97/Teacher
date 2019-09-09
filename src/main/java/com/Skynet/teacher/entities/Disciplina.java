@@ -10,9 +10,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -37,6 +40,20 @@ public class Disciplina implements Serializable {
 	@JsonProperty("turma_disciplinas")
 	@JsonManagedReference
 	private List<TurmaDisciplina> turmaDisciplinas;
+	
+	@JsonProperty("professor")
+	@ManyToOne
+	@JoinColumn(name = "professor_id")
+	@JsonBackReference
+	private Professor professor;
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
 
 	public List<Aula> getAulas() {
 		return aulas;
