@@ -2,20 +2,17 @@ package com.Skynet.teacher.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -30,19 +27,38 @@ public class Aula implements Serializable {
 	@JsonProperty("data")
 	private Date data;
 
-	@JsonProperty("disciplina")
+	@JsonProperty("turma")
 	@ManyToOne
-	@JoinColumn(name = "disciplina_id")
+	@JoinColumn(name = "turma_id")
 	@JsonBackReference
+	private Turma turma;
+
+	@OneToOne
+	@JoinColumn(name = "disciplina_id")
 	private Disciplina disciplina;
-	
-	@OneToMany(mappedBy = "aula", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonProperty("presencas")
-	@JsonManagedReference
-	private List<PresencaAluno> presencas;
+
+	@OneToOne
+	@JoinColumn(name = "professor_id")
+	private Professor professor;
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
 
 	public long getId() {
 		return id;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 
 	public void setId(long id) {
@@ -57,12 +73,12 @@ public class Aula implements Serializable {
 		this.data = data;
 	}
 
-	public Disciplina getDisciplina() {
-		return disciplina;
+	public Turma getTurma() {
+		return turma;
 	}
 
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -41,10 +43,33 @@ public class Turma implements Serializable {
 	@JsonManagedReference
 	private List<Aluno> alunos;
 
+	//Dominante sempre quem tem a relacao ManyToMany
+	@ManyToMany
+	@JoinTable(name = "turma_has_disciplinas", joinColumns = { @JoinColumn(name = "turma_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "disciplina_id") })
+	private List<Disciplina> disciplinas;
+	
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonProperty("turma_disciplinas")
+	@JsonProperty("aulas")
 	@JsonManagedReference
-	private List<TurmaDisciplina> turmaDisciplinas;
+	private List<Aula> aulas;
+
+
+	public List<Aula> getAulas() {
+		return aulas;
+	}
+
+	public void setAulas(List<Aula> aulas) {
+		this.aulas = aulas;
+	}
+
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
 
 	public List<Aluno> getAlunos() {
 		return alunos;

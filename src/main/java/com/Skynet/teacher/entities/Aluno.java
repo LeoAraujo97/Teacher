@@ -3,18 +3,16 @@ package com.Skynet.teacher.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -39,17 +37,19 @@ public class Aluno implements Serializable {
 	@JsonBackReference
 	private Turma turma;
 	
-	@OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonProperty("presencas")
-	@JsonManagedReference
-	private List<PresencaAluno> presencas;
-	
-	public List<PresencaAluno> getPresencas() {
-		return presencas;
+	@ManyToMany
+	@JoinTable(name = "aluno_has_aulas", joinColumns = { @JoinColumn(name = "aluno_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "aula_id") })
+	@JsonProperty("aulas")
+	private List<Aula> aulas;
+
+
+	public List<Aula> getAulas() {
+		return aulas;
 	}
 
-	public void setPresencas(List<PresencaAluno> presencas) {
-		this.presencas = presencas;
+	public void setAulas(List<Aula> aulas) {
+		this.aulas = aulas;
 	}
 
 	public Turma getTurma() {

@@ -1,9 +1,8 @@
 package com.Skynet.teacher.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,21 +10,26 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "disciplina")
-public class Disciplina implements Serializable {
+public class Professor implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@JsonProperty("nome")
-	@Column(nullable = false, length = 1000)
 	private String nome;
+
+	@ManyToMany
+	@JoinTable(name = "professor_has_disciplinas", joinColumns = {
+			@JoinColumn(name = "professor_id") }, inverseJoinColumns = { @JoinColumn(name = "disciplina_id") })
+	@JsonProperty("disciplinas")
+	private Set<Disciplina> disciplinas;
 
 	public long getId() {
 		return id;
@@ -35,16 +39,22 @@ public class Disciplina implements Serializable {
 		this.id = id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getnome() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setnome(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Set<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(Set<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+
 
 }
