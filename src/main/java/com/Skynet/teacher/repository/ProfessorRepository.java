@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.Skynet.teacher.entities.Aluno;
+import com.Skynet.teacher.entities.Professor;
 
 @Repository
-public interface AlunoRepository extends JpaRepository<Aluno, Long> {
-	@Query(value = "SELECT * FROM Aluno", nativeQuery = true)
-	 public List<Aluno> ListarAlunos();
+public interface ProfessorRepository extends JpaRepository<Professor, Long> {
+	@Query(value = "Select * from Professor", nativeQuery = true )
+	public List<Professor> ListarProfessores();
+	
 }
