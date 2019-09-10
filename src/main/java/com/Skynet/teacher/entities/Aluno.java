@@ -38,9 +38,9 @@ public class Aluno implements Serializable {
 	private Turma turma;
 	
 	@ManyToMany
-	@JoinTable(name = "aluno_has_aulas", joinColumns = { @JoinColumn(name = "aluno_id") }, inverseJoinColumns = {
+	@JoinTable(name = "presenca", joinColumns = { @JoinColumn(name = "aluno_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "aula_id") })
-	@JsonProperty("aulas")
+	@JsonProperty("presenca")
 	private List<Aula> aulas;
 
 

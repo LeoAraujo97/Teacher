@@ -50,17 +50,17 @@ public class Turma implements Serializable {
 	private List<Disciplina> disciplinas;
 	
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonProperty("aulas")
+	@JsonProperty("disciplina_turma")
 	@JsonManagedReference
-	private List<Aula> aulas;
+	private List<DisciplinaTurma> disciplinaTurma;
 
 
-	public List<Aula> getAulas() {
-		return aulas;
+	public List<DisciplinaTurma> getDisciplinaTurma() {
+		return disciplinaTurma;
 	}
 
-	public void setAulas(List<Aula> aulas) {
-		this.aulas = aulas;
+	public void setDisciplinaTurma(List<DisciplinaTurma> disciplinaTurma) {
+		this.disciplinaTurma = disciplinaTurma;
 	}
 
 	public List<Disciplina> getDisciplinas() {
