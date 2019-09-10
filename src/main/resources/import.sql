@@ -10,15 +10,15 @@ insert into aluno (email, nome, senha, turma_id) values ('lucas@gostoso.com', 'L
 insert into disciplina (nome) values ('Redes')
 insert into disciplina (nome) values ('Arquitetura')
 
-insert into turma_disciplina (turma_id, disciplina_id) values (1, 1)
-insert into turma_disciplina (turma_id, disciplina_id) values (1, 2)
+--insert into turma_disciplina (turma_id, disciplina_id) values (1, 1)
+--insert into turma_disciplina (turma_id, disciplina_id) values (1, 2)
+INSERT INTO professor(nome) Values ("Roberto")
+--insert into aula (data, turma_id, disciplina_id, professor_id) values ('20190102', 1, 1, 1)
+--insert into aula (data, disciplina_id) values ('20190103', 1)
+--insert into aula (data, disciplina_id) values ('20190104', 1)
+--insert into aula (data, disciplina_id) values ('20190105', 1)
 
-insert into aula (data, disciplina_id) values ('20190102', 1)
-insert into aula (data, disciplina_id) values ('20190103', 1)
-insert into aula (data, disciplina_id) values ('20190104', 1)
-insert into aula (data, disciplina_id) values ('20190105', 1)
-
-insert into presenca_aluno (presente, aluno_id, aula_id) values (false, 1, 1)
+--insert into presenca_aluno (presente, aluno_id, aula_id) values (false, 1, 1)
 
 --insert into tb_jogador (usuario, senha, SESSAO_STATUS) values ('admin2', 'admin2', false)
 ----insert into tb_partidas (id, status) values (1, true)

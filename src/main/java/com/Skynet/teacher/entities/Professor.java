@@ -1,35 +1,36 @@
 package com.Skynet.teacher.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "professor")
-public class Professor implements Serializable{
+public class Professor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	@JsonProperty("nome")
 	private String nome;
-	
-	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@ManyToMany
+	@JoinTable(name = "professor_has_disciplinas", joinColumns = {
+			@JoinColumn(name = "professor_id") }, inverseJoinColumns = { @JoinColumn(name = "disciplina_id") })
 	@JsonProperty("disciplinas")
-	@JsonManagedReference
-	private List<Disciplina>disciplinas;
-	
+	private Set<Disciplina> disciplinas;
+
 	public long getId() {
 		return id;
 	}
@@ -46,11 +47,11 @@ public class Professor implements Serializable{
 		this.nome = nome;
 	}
 
-	public List<Disciplina> getDisciplinas() {
+	public Set<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}
 
-	public void setDisciplinas(List<Disciplina> disciplinas) {
+	public void setDisciplinas(Set<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
 
