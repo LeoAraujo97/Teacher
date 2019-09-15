@@ -34,6 +34,9 @@ public class Aula implements Serializable {
 	@JoinColumn(name = "disciplina_id")
 	@JsonProperty("disciplina")
 	private Disciplina disciplina;
+	
+	@JsonProperty("horario")
+	private String horario;
 
 	public DisciplinaTurma getDisciplinaTurma() {
 		return disciplinaTurma;
@@ -57,6 +60,14 @@ public class Aula implements Serializable {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
 	}
 	
 	

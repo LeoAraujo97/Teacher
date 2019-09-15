@@ -29,9 +29,6 @@ public class DisciplinaTurma implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@JsonProperty("data")
-	private Date data;
-
 	@JsonProperty("turma")
 	@ManyToOne
 	@JoinColumn(name = "turma_id")
@@ -46,12 +43,25 @@ public class DisciplinaTurma implements Serializable {
 	@JoinColumn(name = "professor_id")
 	private Professor professor;
 	
+	@JsonProperty("diasDaSemana")
+	private String diaDaSemana;
 	
 	@OneToMany(mappedBy = "disciplinaTurma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("aulas")
 	@JsonManagedReference
 	private List<Aula> aulas;
 	
+	@JsonProperty("unidade")
+	private String unidade;
+	
+	public String getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
+
 	public List<Aula> getAulas() {
 		return aulas;
 	}
@@ -84,20 +94,19 @@ public class DisciplinaTurma implements Serializable {
 		this.id = id;
 	}
 
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
 	public Turma getTurma() {
 		return turma;
 	}
 
 	public void setTurma(Turma turma) {
 		this.turma = turma;
+	}
+	public String getDiaDaSemana() {
+		return diaDaSemana;
+	}
+
+	public void setDiaDaSemana(String diaDaSemana) {
+		this.diaDaSemana = diaDaSemana;
 	}
 
 }
