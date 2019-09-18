@@ -16,11 +16,21 @@ public class AlunoService {
 	@Autowired
 	private AlunoRepository alunoRepository;
 
-	public ResponseEntity<List<Aluno>> ListarAlunos() {
+	public ResponseEntity<List<Aluno>> listAlunos() {
 		List<Aluno> alunos = alunoRepository.findAll();
 		if (!alunos.isEmpty())
 			return new ResponseEntity<List<Aluno>>(alunos, HttpStatus.OK);
 
 		return new ResponseEntity<List<Aluno>>(HttpStatus.NOT_FOUND);
+	}
+
+	public ResponseEntity<Aluno> findAlunoById(long id) 
+	{
+		Aluno aluno = alunoRepository.findById(id).orElse(null);
+		if (aluno != null)
+		{
+			return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
+		}
+			return new ResponseEntity<Aluno>( HttpStatus.NOT_FOUND);
 	}
 }

@@ -1,7 +1,6 @@
 package com.Skynet.teacher.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,7 +28,7 @@ public class Turma implements Serializable {
 	private int Id;
 
 	@JsonProperty("ano")
-	private Date anoInicio;
+	private String anoInicio;
 
 	@ManyToOne
 	@JoinColumn(name = "curso_id")
@@ -43,64 +40,51 @@ public class Turma implements Serializable {
 	@JsonManagedReference
 	private List<Aluno> alunos;
 
-	//Dominante sempre quem tem a relacao ManyToMany
-	@ManyToMany
-	@JoinTable(name = "turma_has_disciplinas", joinColumns = { @JoinColumn(name = "turma_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "disciplina_id") })
-	private List<Disciplina> disciplinas;
-	
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("disciplina_turma")
 	@JsonManagedReference
 	private List<DisciplinaTurma> disciplinaTurma;
 
 
-	public List<DisciplinaTurma> getDisciplinaTurma() {
-		return disciplinaTurma;
+
+	public int getId() {
+		return this.Id;
 	}
 
-	public void setDisciplinaTurma(List<DisciplinaTurma> disciplinaTurma) {
-		this.disciplinaTurma = disciplinaTurma;
+	public void setId(int Id) {
+		this.Id = Id;
 	}
 
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
+	public String getAnoInicio() {
+		return this.anoInicio;
 	}
 
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
-	}
-
-	public List<Aluno> getAlunos() {
-		return alunos;
-	}
-
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
+	public void setAnoInicio(String anoInicio) {
+		this.anoInicio = anoInicio;
 	}
 
 	public Curso getCurso() {
-		return curso;
+		return this.curso;
 	}
 
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
 
-	public int getId() {
-		return Id;
+	public List<Aluno> getAlunos() {
+		return this.alunos;
 	}
 
-	public void setId(int id) {
-		Id = id;
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
 	}
 
-	public Date getAnoInicio() {
-		return anoInicio;
+	public List<DisciplinaTurma> getDisciplinaTurma() {
+		return this.disciplinaTurma;
 	}
 
-	public void setAnoInicio(Date anoInicio) {
-		this.anoInicio = anoInicio;
+	public void setDisciplinaTurma(List<DisciplinaTurma> disciplinaTurma) {
+		this.disciplinaTurma = disciplinaTurma;
 	}
 
 }

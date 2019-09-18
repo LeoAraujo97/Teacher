@@ -11,22 +11,24 @@ import com.Skynet.teacher.service.TurmaService;
 
 @RestController
 @RequestMapping("/api")
-public class TurmaController {
+public class TurmaController 
+{
 	
 	@Autowired
 	private TurmaService turmaService;
 	
 	@RequestMapping(value = "/turmas/", method = RequestMethod.GET)
-	public ResponseEntity<?> listarTurmas() {
+	public ResponseEntity<?> listTurmas()
+	{
 		System.out.println("teste");
-		try {
-			return turmaService.listarTurmas();
-		}catch (Exception e) {
+		try 
+		{
+			return turmaService.listTurmas();
+		}catch (Exception e) 
+		{
 			System.out.println(e);
-			return turmaService.listarTurmas();
+			return turmaService.listTurmas();
 		}	
 			// TODO: handle exception
-	}
-	
-
+	}	
 }

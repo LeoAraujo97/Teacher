@@ -31,16 +31,16 @@ public class Curso implements Serializable {
 	@JsonManagedReference
 	List<Turma> turmas;
 
-	public int getid() {
-		return id;
+	public int getId() {
+		return this.id;
 	}
 
-	public void setid(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
@@ -48,7 +48,7 @@ public class Curso implements Serializable {
 	}
 
 	public List<Turma> getTurmas() {
-		return turmas;
+		return this.turmas;
 	}
 
 	public void setTurmas(List<Turma> turmas) {

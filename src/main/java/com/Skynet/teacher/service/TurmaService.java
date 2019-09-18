@@ -16,14 +16,14 @@ public class TurmaService {
 	@Autowired
 	private TurmaRepository turmaRepository;
 
-	public ResponseEntity<List<Turma>> listarTurmas() {
+	public ResponseEntity<List<Turma>> listTurmas() {
 		List<Turma> turmas = turmaRepository.findAll();
 		if (!turmas.isEmpty())
 			return new ResponseEntity<List<Turma>>(turmas, HttpStatus.OK);
 		return new ResponseEntity<List<Turma>>(HttpStatus.NOT_FOUND);
 	}
 	
-	public Turma adicionarTurma(Turma turma) {
+	public Turma addTurma(Turma turma) {
 		turmaRepository.save(turma);
 		return turma;
 		

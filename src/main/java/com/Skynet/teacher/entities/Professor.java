@@ -1,16 +1,17 @@
 package com.Skynet.teacher.entities;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -24,15 +25,21 @@ public class Professor implements Serializable {
 
 	@JsonProperty("nome")
 	private String nome;
+	
+	@JsonProperty("email")
+	private String email;
+	
+	@JsonProperty("senha")
+	private String senha;
 
-	@ManyToMany
-	@JoinTable(name = "professor_has_disciplinas", joinColumns = {
-			@JoinColumn(name = "professor_id") }, inverseJoinColumns = { @JoinColumn(name = "disciplina_id") })
-	@JsonProperty("disciplinas")
-	private Set<Disciplina> disciplinas;
+	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonProperty("turmaDisciplinas")
+	@JsonManagedReference
+	private List<DisciplinaTurma> disciplinaTurmas;
+
 
 	public long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(long id) {
@@ -40,20 +47,35 @@ public class Professor implements Serializable {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-	public Set<Disciplina> getDisciplinas() {
-		return disciplinas;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setDisciplinas(Set<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
+	public String getSenha() {
+		return this.senha;
+	}
 
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public List<DisciplinaTurma> getDisciplinaTurmas() {
+		return this.disciplinaTurmas;
+	}
+
+	public void setDisciplinaTurmas(List<DisciplinaTurma> disciplinaTurmas) {
+		this.disciplinaTurmas = disciplinaTurmas;
+	}
+	
 }

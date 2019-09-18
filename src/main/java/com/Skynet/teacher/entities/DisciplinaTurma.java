@@ -1,7 +1,6 @@
 package com.Skynet.teacher.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -39,7 +37,7 @@ public class DisciplinaTurma implements Serializable {
 	@JoinColumn(name = "disciplina_id")
 	private Disciplina disciplina;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "professor_id")
 	private Professor professor;
 	
@@ -53,41 +51,9 @@ public class DisciplinaTurma implements Serializable {
 	
 	@JsonProperty("unidade")
 	private String unidade;
-	
-	public String getUnidade() {
-		return unidade;
-	}
-
-	public void setUnidade(String unidade) {
-		this.unidade = unidade;
-	}
-
-	public List<Aula> getAulas() {
-		return aulas;
-	}
-
-	public void setAulas(List<Aula> aulas) {
-		this.aulas = aulas;
-	}
-
-	public Disciplina getDisciplina() {
-		return disciplina;
-	}
-
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
-	}
 
 	public long getId() {
-		return id;
-	}
-
-	public Professor getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
+		return this.id;
 	}
 
 	public void setId(long id) {
@@ -95,18 +61,51 @@ public class DisciplinaTurma implements Serializable {
 	}
 
 	public Turma getTurma() {
-		return turma;
+		return this.turma;
 	}
 
 	public void setTurma(Turma turma) {
 		this.turma = turma;
 	}
+
+	public Disciplina getDisciplina() {
+		return this.disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public Professor getProfessor() {
+		return this.professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
 	public String getDiaDaSemana() {
-		return diaDaSemana;
+		return this.diaDaSemana;
 	}
 
 	public void setDiaDaSemana(String diaDaSemana) {
 		this.diaDaSemana = diaDaSemana;
 	}
 
+	public List<Aula> getAulas() {
+		return this.aulas;
+	}
+
+	public void setAulas(List<Aula> aulas) {
+		this.aulas = aulas;
+	}
+
+	public String getUnidade() {
+		return this.unidade;
+	}
+
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
+	
 }
