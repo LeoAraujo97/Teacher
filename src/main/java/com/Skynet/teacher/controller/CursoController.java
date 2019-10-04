@@ -1,11 +1,13 @@
 package com.Skynet.teacher.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.Skynet.teacher.entities.Curso;
 import com.Skynet.teacher.service.CursoService;
 
 @RestController
@@ -18,6 +20,13 @@ public class CursoController {
 	public ResponseEntity<?> ListarCursos() {
 
 		return cursoServ.ListarCursos();
+	}
+
+	@RequestMapping(value = "/curso/", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<?> InserirCurso(@RequestBody Curso curso, HttpServletRequest request) 
+	{
+		System.out.println(curso.getNome());
+		return cursoServ.InserirCurso(curso);
 	}
 
 }

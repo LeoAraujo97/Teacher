@@ -13,4 +13,7 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
 	@Query(value = "SELECT * FROM Curso", nativeQuery = true)
 	public List<Curso> ListarCursos();
 
+	@Query(value = "SELECT * FROM CURSO WHERE NOME = ?1", nativeQuery = true)
+	public Curso buscaCursoPeloNome(String nome);
 }
+

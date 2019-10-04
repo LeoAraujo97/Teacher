@@ -23,4 +23,17 @@ public class CursoService {
 
 		return new ResponseEntity<List<Curso>>(HttpStatus.NOT_FOUND);
 	}
+
+	public ResponseEntity<?> InserirCurso(Curso curso) {
+		String nomeDoCurso = curso.getNome();
+		Curso cursoExistente = cursoRepository.buscaCursoPeloNome(nomeDoCurso);
+		if(cursoExistente != null){
+			return new ResponseEntity<String>("Curso já cadastrado", HttpStatus.BAD_REQUEST);
+		}
+
+		Curso cursoCriado =  cursoRepository.save(curso);
+
+		return new ResponseEntity<Curso>(cursoCriado, HttpStatus.CREATED);
+	}
+
 }

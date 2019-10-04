@@ -23,9 +23,14 @@ public class TurmaService {
 		return new ResponseEntity<List<Turma>>(HttpStatus.NOT_FOUND);
 	}
 	
-	public Turma addTurma(Turma turma) {
-		turmaRepository.save(turma);
-		return turma;
+	public ResponseEntity<?> addTurma(Turma turma) {
+		String nomeTurma = turma.getNome();
+		Turma turmaExistente = turmaRepository.EncontrarTurmaPorNome(nomeTurma);
+		if(turmaExistente != null){
+			return new ResponseEntity<Turma>(turmaExistente, HttpStatus.OK);
+		}
+		Turma turmaCriada = turmaRepository.save(turma);
+		return new ResponseEntity<Turma>(turmaCriada,HttpStatus.CREATED);
 		
 	}
 }	

@@ -12,7 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -34,7 +34,7 @@ public class Aluno implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "turma_id")
-	@JsonBackReference
+	// @JsonBackReference
 	private Turma turma;
 	
 	@ManyToMany
