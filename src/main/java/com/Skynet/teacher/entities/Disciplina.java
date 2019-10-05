@@ -23,7 +23,6 @@ public class Disciplina implements Serializable {
 	@Column(nullable = false, length = 1000)
 	private String nome;
 
-
 	public long getId() {
 		return this.id;
 	}

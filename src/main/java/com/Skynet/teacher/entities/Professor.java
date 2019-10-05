@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -34,7 +34,7 @@ public class Professor implements Serializable {
 
 	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("turmaDisciplinas")
-	@JsonBackReference
+	@JsonIgnore
 	private List<DisciplinaTurma> disciplinaTurmas;
 
 
