@@ -24,7 +24,7 @@ public class CursoController {
 
 		List<Curso> cursos = cursoServ.listarCursos();
 		if (cursos == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Curso>>(cursos, HttpStatus.OK);
 	}

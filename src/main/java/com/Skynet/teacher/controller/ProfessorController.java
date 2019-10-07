@@ -24,7 +24,7 @@ public class ProfessorController {
 	public ResponseEntity<?> listProfessores() {
 		List<Professor> professores = professorServ.listProfessores();
 		if (professores == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<List<Professor>>(professores, HttpStatus.OK);
@@ -34,7 +34,7 @@ public class ProfessorController {
 	public ResponseEntity<?> professorWithDisciplinas(@PathVariable("id") long id) {
 		Professor professor = professorServ.findProfessorAndDisciplinas(id);
 		if (professor == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<Professor>(professor, HttpStatus.OK);

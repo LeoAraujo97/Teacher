@@ -26,7 +26,7 @@ public class TurmaController {
 		List<Turma> turmas = turmaService.listTurmas();
 
 		if (turmas == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Turma>>(turmas, HttpStatus.OK);
 
