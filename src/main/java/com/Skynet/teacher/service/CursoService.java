@@ -3,8 +3,6 @@ package com.Skynet.teacher.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.Skynet.teacher.entities.Curso;
@@ -16,24 +14,32 @@ public class CursoService {
 	@Autowired
 	private CursoRepository cursoRepository;
 
-	public ResponseEntity<List<Curso>> ListarCursos() {
-		List<Curso> cursos = cursoRepository.findAll();
-		if (!cursos.isEmpty())
-			return new ResponseEntity<List<Curso>>(cursos, HttpStatus.OK);
+	public List<Curso> listarCursos() {
+		try {
+			List<Curso> cursos = cursoRepository.findAll();
+			if (!cursos.isEmpty())
+				return cursos;
 
-		return new ResponseEntity<List<Curso>>(HttpStatus.NOT_FOUND);
+			return null;
+
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
-	public ResponseEntity<?> InserirCurso(Curso curso) {
-		String nomeDoCurso = curso.getNome();
-		Curso cursoExistente = cursoRepository.buscaCursoPeloNome(nomeDoCurso);
-		if(cursoExistente != null){
-			return new ResponseEntity<String>("Curso já cadastrado", HttpStatus.BAD_REQUEST);
+	public Curso inserirCurso(Curso curso) {
+		try {
+
+			String nomeDoCurso = curso.getNome();
+			Curso cursoExistente = cursoRepository.buscaCursoPeloNome(nomeDoCurso);
+			if (cursoExistente != null) {
+				return null;
+			}
+
+			return cursoRepository.save(curso);
+		} catch (Exception e) {
+			throw e;
 		}
-
-		Curso cursoCriado =  cursoRepository.save(curso);
-
-		return new ResponseEntity<Curso>(cursoCriado, HttpStatus.CREATED);
 	}
 
 }

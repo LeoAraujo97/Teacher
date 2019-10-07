@@ -9,5 +9,5 @@ import com.Skynet.teacher.entities.Aula;
 @Repository
 public interface AulaRepository extends JpaRepository<Aula, Long>{
     @Query(value = "SELECT * FROM ALUNO WHERE EMAIL =?1", nativeQuery = true)
-    public Aula EncontrarAlunoPorEmail(String email);
+    public Aula encontrarAlunoPorEmail(String email);
 }

@@ -3,8 +3,6 @@ package com.Skynet.teacher.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.Skynet.teacher.entities.Professor;
@@ -15,33 +13,42 @@ public class ProfessorService {
 	@Autowired
 	private ProfessorRepository professorRepository;
 
-	public ResponseEntity<List<Professor>> listProfessores() {
-		List<Professor> professores = professorRepository.findAll();
+	public List<Professor> listProfessores() {
+		try {
+			List<Professor> professores = professorRepository.findAll();
 
-		if (!professores.isEmpty())
-			return new ResponseEntity<List<Professor>>(professores, HttpStatus.OK);
+			if (professores.isEmpty())
+				return null;
 
-		return new ResponseEntity<List<Professor>>(HttpStatus.NOT_FOUND);
+			return professores;
+
+		} catch (Exception e) {
+			throw e;
+		}
 
 	}
 
-	public ResponseEntity<Professor> findProfessorAndDisciplinas(long id) {
-		Professor professor = professorRepository.findById(id).orElse(null);
-		if (professor != null) {
-			return new ResponseEntity<>(professor, HttpStatus.OK);
+	public Professor findProfessorAndDisciplinas(long id) {
+		try {
+			Professor professor = professorRepository.findById(id).orElse(null);
+			return professor;
+		} catch (Exception e) {
+			throw e;
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
-	public ResponseEntity<?> cadastraProfessor(Professor professor) {
-		String email = professor.getEmail();
-		Professor professorExistente = professorRepository.encontraProfessorPorEmail(email);
-		if(professorExistente != null ){
-			
-			return new ResponseEntity<Professor>(professorExistente,HttpStatus.OK);
+	public Professor cadastraProfessor(Professor professor) {
+		try {
+			String email = professor.getEmail();
+			Professor professorExistente = professorRepository.encontraProfessorPorEmail(email);
+			if (professorExistente != null) {
+
+				return null;
+			}
+			return professorRepository.save(professor);
+		} catch (Exception e) {
+			throw e;
 		}
-		Professor ProfessorCriado = professorRepository.save(professor);
-		return new ResponseEntity<Professor>(ProfessorCriado,HttpStatus.CREATED);
 	}
 
 }
