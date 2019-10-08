@@ -48,4 +48,16 @@ public class AlunoService {
 			throw e;
 		}
 	}
+
+	public Aluno encontrarAlunoPorEmailESenha(String email, String senha) {
+		try {
+			Aluno aluno = alunoRepository.findAlunoByEmailAndSenha(email, senha);
+			System.out.println(aluno.getNome());
+			return aluno;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+
+	}
 }

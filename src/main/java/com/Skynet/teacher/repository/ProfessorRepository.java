@@ -10,8 +10,11 @@ import com.Skynet.teacher.entities.Professor;
 
 @Repository
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
-	@Query(value = "Select * from Professor", nativeQuery = true )
+	@Query(value = "Select * from Professor", nativeQuery = true)
 	public List<Professor> listarProfessores();
-	@Query(value = "Select * from Professor where email = ?1", nativeQuery = true )
+
+	@Query(value = "Select * from Professor where email = ?1", nativeQuery = true)
 	public Professor encontraProfessorPorEmail(String email);
+
+	public Professor findProfessorByEmailAndSenha(String email, String senha);
 }
