@@ -60,4 +60,15 @@ public class AlunoService {
 		}
 
 	}
+
+	public Aluno encontrarPresencaDoAluno(Long id ){
+		try {
+			Aluno aluno = alunoRepository.encontrarPresencaDoAluno(id);
+			return aluno;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+
+	}
 }

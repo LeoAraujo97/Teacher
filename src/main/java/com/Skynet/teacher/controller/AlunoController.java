@@ -3,6 +3,7 @@ package com.Skynet.teacher.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,5 +46,13 @@ public class AlunoController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<Aluno>(alunoInserted, HttpStatus.CREATED);
+	}
+	@GetMapping("aluno/presenca/{id}")
+	public ResponseEntity<?> alunoPresenca(@PathVariable("id") long id){
+		Aluno aluno = alunoServ.encontrarPresencaDoAluno(id);
+		if (aluno == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
 	}
 }
