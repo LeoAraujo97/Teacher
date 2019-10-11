@@ -51,4 +51,14 @@ public class ProfessorService {
 		}
 	}
 
+	public Professor encontrarProfessorPorEmailESenha(String email, String senha) {
+		try {
+			Professor professor = professorRepository.findProfessorByEmailAndSenha(email, senha);
+			System.out.println(professor.getNome());
+			return professor;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
 }

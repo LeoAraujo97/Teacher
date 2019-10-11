@@ -11,8 +11,10 @@ import com.Skynet.teacher.entities.Aluno;
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	@Query(value = "SELECT * FROM Aluno", nativeQuery = true)
-	 public List<Aluno> listarAlunos();
+	public List<Aluno> listarAlunos();
 
-	 @Query(value = "SELECT * FROM ALUNO WHERE EMAIL =?1", nativeQuery = true)
-	 public Aluno encontrarAlunoPorEmail(String email);
+	@Query(value = "SELECT * FROM ALUNO WHERE EMAIL =?1", nativeQuery = true)
+	public Aluno encontrarAlunoPorEmail(String email);
+
+	public Aluno findAlunoByEmailAndSenha(String email, String senha);
 }
