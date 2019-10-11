@@ -12,8 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -28,10 +29,10 @@ public class DisciplinaTurma implements Serializable {
 	@JsonProperty("turma")
 	@ManyToOne
 	@JoinColumn(name = "turma_id")
-	// @JsonManagedReference
+	@JsonBackReference
 	private Turma turma;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "disciplina_id")
 	private Disciplina disciplina;
 
@@ -44,7 +45,7 @@ public class DisciplinaTurma implements Serializable {
 	
 	@OneToMany(mappedBy = "disciplinaTurma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("aulas")
-	// @JsonManagedReference
+	@JsonManagedReference
 	private List<Aula> aulas;
 	
 	@JsonProperty("unidade")

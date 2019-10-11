@@ -14,7 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -34,18 +35,17 @@ public class Turma implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "curso_id")
-	// @JsonBackReference
-	@JsonIgnore
+	@JsonBackReference
 	private Curso curso;
 
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("alunos")
-	// @JsonManagedReference
+	@JsonManagedReference
 	private List<Aluno> alunos;
 
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("disciplina_turma")
-	// @JsonManagedReference
+	@JsonManagedReference
 	private List<DisciplinaTurma> disciplinaTurma;
 
 
