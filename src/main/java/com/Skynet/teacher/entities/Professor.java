@@ -1,17 +1,12 @@
 package com.Skynet.teacher.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -31,11 +26,6 @@ public class Professor implements Serializable {
 	
 	@JsonProperty("senha")
 	private String senha;
-
-	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonProperty("turmaDisciplinas")
-	@JsonIgnore
-	private List<DisciplinaTurma> disciplinaTurmas;
 
 
 	public long getId() {
@@ -70,12 +60,5 @@ public class Professor implements Serializable {
 		this.senha = senha;
 	}
 
-	public List<DisciplinaTurma> getDisciplinaTurmas() {
-		return this.disciplinaTurmas;
-	}
-
-	public void setDisciplinaTurmas(List<DisciplinaTurma> disciplinaTurmas) {
-		this.disciplinaTurmas = disciplinaTurmas;
-	}
 	
 }
