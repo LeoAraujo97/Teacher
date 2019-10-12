@@ -25,7 +25,7 @@ public class Turma implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
+	private Long Id;
 
 	@JsonProperty("nome")
 	private String nome;
@@ -58,11 +58,11 @@ public class Turma implements Serializable {
 		this.nome = nome;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return this.Id;
 	}
 
-	public void setId(int Id) {
+	public void setId(Long Id) {
 		this.Id = Id;
 	}
 

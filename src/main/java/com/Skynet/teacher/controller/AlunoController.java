@@ -38,7 +38,7 @@ public class AlunoController {
 		return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/aluno", method = RequestMethod.POST)
+	@RequestMapping(value = "/aluno/", method = RequestMethod.POST)
 	public ResponseEntity<?> alunoInsert(@RequestBody Aluno aluno) {
 		Aluno alunoInserted = alunoServ.alunoInsert(aluno);
 		if (alunoInserted == null) {

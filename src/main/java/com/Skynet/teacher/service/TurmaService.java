@@ -33,6 +33,10 @@ public class TurmaService {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	public Turma getDisciplinaById(Long turmaId) {
+		return turmaRepository.findById(turmaId).orElse(null);
 
 	}
 }
