@@ -75,5 +75,17 @@ public class DisciplinaTurmaController {
             // TODO: handle exception
         }
     }
+    
+    @GetMapping(value = "/disciplinasProfessor/{id}")
+    public ResponseEntity<?> getDisciplinasProfessorByID(@PathVariable("id") Long professorId) {
+        try {
+            List<DisciplinaTurma> listDisciplinaTurma = disciplinaTurmaService.getDisciplinasProfessorById(professorId);
+            return new ResponseEntity<List<DisciplinaTurma>>(listDisciplinaTurma, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<Exception>(e, HttpStatus.BAD_REQUEST);
+            // TODO: handle exception
+        }
+    }
 
 }
