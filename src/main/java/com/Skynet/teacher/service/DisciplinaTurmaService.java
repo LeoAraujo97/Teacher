@@ -11,11 +11,11 @@ import com.Skynet.teacher.repository.DisciplinaTurmaRepository;
 @Service
 public class DisciplinaTurmaService {
 	@Autowired
-	private DisciplinaTurmaRepository disciplinaRepository;
+	private DisciplinaTurmaRepository disciplinaTurmaRepository;
 
 	public List<DisciplinaTurma> listAll() {
 		try {
-			return disciplinaRepository.findAll();
+			return disciplinaTurmaRepository.findAll();
 		} catch (Exception e) {
 			System.out.println(e);
 			throw e;
@@ -25,7 +25,7 @@ public class DisciplinaTurmaService {
 
 	public DisciplinaTurma addDisciplinaTurma(DisciplinaTurma disciplinaTurma) {
 		try {
-			return disciplinaRepository.save(disciplinaTurma);
+			return disciplinaTurmaRepository.save(disciplinaTurma);
 		} catch (Exception e) {
 			System.out.println(e);
 			throw e;
@@ -33,11 +33,11 @@ public class DisciplinaTurmaService {
 	}
 
 	public DisciplinaTurma editDisciplinaTurma(DisciplinaTurma disciplinaTurma) {
-		DisciplinaTurma newDisciplinaTurma = disciplinaRepository.findById(disciplinaTurma.getId()).orElse(null);
+		DisciplinaTurma newDisciplinaTurma = disciplinaTurmaRepository.findById(disciplinaTurma.getId()).orElse(null);
 		if (newDisciplinaTurma != null) {
 			disciplinaTurma = newDisciplinaTurma;
 			try {
-				disciplinaRepository.save(disciplinaTurma);
+				disciplinaTurmaRepository.save(disciplinaTurma);
 				return disciplinaTurma;
 			} catch (Exception e) {
 				System.out.println(e);
@@ -50,11 +50,15 @@ public class DisciplinaTurmaService {
 
 	public DisciplinaTurma getDisciplinaTurmaById(Long disciplinaTurmaID) {
 		try {
-			DisciplinaTurma disciplinaTurma = disciplinaRepository.findById(disciplinaTurmaID).orElse(null);
+			DisciplinaTurma disciplinaTurma = disciplinaTurmaRepository.findById(disciplinaTurmaID).orElse(null);
 			return disciplinaTurma;
 		} catch (Exception e) {
 			throw e;
 		}
 
+	}
+	
+	public List<DisciplinaTurma> getDisciplinasProfessorById(Long professorId) {
+		return disciplinaTurmaRepository.findDisciplinaTurmaByprofessor_id(professorId);
 	}
 }
