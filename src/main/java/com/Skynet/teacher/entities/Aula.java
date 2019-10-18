@@ -19,15 +19,15 @@ public class Aula implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@JsonProperty("data")
 	private String data;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "disciplina_turma_id")
 	@JsonBackReference
 	private DisciplinaTurma disciplinaTurma;
-	
+
 	@JsonProperty("horario")
 	private String horario;
 
@@ -62,5 +62,5 @@ public class Aula implements Serializable {
 	public void setHorario(String horario) {
 		this.horario = horario;
 	}
-	
+
 }

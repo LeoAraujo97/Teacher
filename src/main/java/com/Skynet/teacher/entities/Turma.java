@@ -15,11 +15,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "turma")
+@JsonIgnoreProperties({"alunos"})
 public class Turma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,7 +31,7 @@ public class Turma implements Serializable {
 
 	@JsonProperty("nome")
 	private String nome;
-	
+
 	@JsonProperty("ano")
 	private String anoInicio;
 
@@ -47,8 +49,6 @@ public class Turma implements Serializable {
 	@JsonProperty("disciplina_turma")
 	@JsonManagedReference
 	private List<DisciplinaTurma> disciplinaTurma;
-
-
 
 	public String getNome() {
 		return this.nome;
