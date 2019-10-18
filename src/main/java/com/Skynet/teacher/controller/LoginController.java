@@ -2,6 +2,8 @@ package com.Skynet.teacher.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.Skynet.teacher.entities.Aluno;
+import com.Skynet.teacher.entities.Professor;
 import com.Skynet.teacher.service.LoginService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -26,14 +28,26 @@ public class LoginController {
     public ResponseEntity<?> realizarLogin(@RequestBody String body, @RequestParam("userType") String userType,
             HttpServletRequest request) {
         Object obj = loginService.realizarLogin(userType, body);
+
+        ObjectMapper objMapper = new ObjectMapper();
+        ObjectNode objNode = objMapper.createObjectNode();
+
         if (obj != null) {
             request.getSession().setAttribute("usuarioLogado", true);
-            return new ResponseEntity<Object>(obj, HttpStatus.OK);
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode returnMessage = mapper.createObjectNode();
-        returnMessage.put("message", "Unable to find user");
+            if (obj instanceof Aluno) {
+                Aluno aluno = (Aluno) obj;
+                objNode.put("ra", aluno.getRa());
+                objNode.put("nome", aluno.getNome());
+                objNode.put("email", aluno.getNome());
+                objNode.put("turma_id", aluno.getTurma().getId());
+                return new ResponseEntity<ObjectNode>(objNode, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<Professor>((Professor) obj, HttpStatus.OK);
 
-        return new ResponseEntity<ObjectNode>(returnMessage, HttpStatus.UNAUTHORIZED);
+            }
+
+        }
+        objNode.put("message", "Unable to find user");
+        return new ResponseEntity<ObjectNode>(objNode, HttpStatus.UNAUTHORIZED);
     }
 }
