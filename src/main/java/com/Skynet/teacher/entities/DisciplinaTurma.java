@@ -39,15 +39,15 @@ public class DisciplinaTurma implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "professor_id")
 	private Professor professor;
-	
+
 	@JsonProperty("diasDaSemana")
 	private String diaDaSemana;
-	
+
 	@OneToMany(mappedBy = "disciplinaTurma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonProperty("aulas")
 	@JsonManagedReference
 	private List<Aula> aulas;
-	
+
 	@JsonProperty("unidade")
 	private String unidade;
 
@@ -106,5 +106,5 @@ public class DisciplinaTurma implements Serializable {
 	public void setUnidade(String unidade) {
 		this.unidade = unidade;
 	}
-	
+
 }

@@ -2,6 +2,7 @@ package com.Skynet.teacher.controller;
 
 import java.util.List;
 
+import com.Skynet.teacher.entities.Aula;
 import com.Skynet.teacher.entities.DisciplinaTurma;
 import com.Skynet.teacher.service.DisciplinaTurmaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -44,7 +46,6 @@ public class DisciplinaTurmaController {
         } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<Exception>(e, HttpStatus.BAD_REQUEST);
-            // TODO: handle exception
         }
     }
 
@@ -61,7 +62,6 @@ public class DisciplinaTurmaController {
             return new ResponseEntity<ObjectNode>(objNode, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<Exception>(e, HttpStatus.BAD_REQUEST);
-            // TODO: handle exception
         }
     }
 
@@ -72,19 +72,36 @@ public class DisciplinaTurmaController {
             return new ResponseEntity<DisciplinaTurma>(disciplinaTurmanew, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<Exception>(e, HttpStatus.BAD_REQUEST);
-            // TODO: handle exception
         }
     }
-    
+
+    // Retorna todas as disciplinas de um professor e o ID da turma
     @GetMapping(value = "/disciplinasProfessor/{id}")
     public ResponseEntity<?> getDisciplinasProfessorByID(@PathVariable("id") Long professorId) {
         try {
-            List<DisciplinaTurma> listDisciplinaTurma = disciplinaTurmaService.getDisciplinasProfessorById(professorId);
-            return new ResponseEntity<List<DisciplinaTurma>>(listDisciplinaTurma, HttpStatus.OK);
+            List<Object> listDisciplinaTurma = disciplinaTurmaService.getDisciplinasProfessorById(professorId);
+            return new ResponseEntity<Object>(listDisciplinaTurma, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<Exception>(e, HttpStatus.BAD_REQUEST);
-            // TODO: handle exception
+        }
+    }
+
+    @GetMapping(value = "/disciplinaTurma/{id}/aulaDia")
+    public ResponseEntity<?> getAulaDoDia(@PathVariable("id") Long disciplinaTurmaId,
+            @RequestParam("data") String data) {
+        try {
+            Aula aula = disciplinaTurmaService.getDisciplinaTurmaAulaDoDia(disciplinaTurmaId, data);
+            if (aula != null) {
+                return new ResponseEntity<Aula>(aula, HttpStatus.OK);
+            }
+            ObjectMapper objmapper = new ObjectMapper();
+            ObjectNode objNode = objmapper.createObjectNode();
+            objNode.put("message", "Nao existe aula na data de hoje");
+            return new ResponseEntity<ObjectNode>(objNode, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<Exception>(e, HttpStatus.BAD_REQUEST);
         }
     }
 

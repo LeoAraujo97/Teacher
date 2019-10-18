@@ -1,12 +1,17 @@
 package com.Skynet.teacher.service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.Skynet.teacher.entities.Aula;
+import com.Skynet.teacher.entities.DisciplinaTurma;
+import com.Skynet.teacher.repository.DisciplinaTurmaRepository;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.Skynet.teacher.entities.DisciplinaTurma;
-import com.Skynet.teacher.repository.DisciplinaTurmaRepository;
 
 @Service
 public class DisciplinaTurmaService {
@@ -57,8 +62,43 @@ public class DisciplinaTurmaService {
 		}
 
 	}
-	
-	public List<DisciplinaTurma> getDisciplinasProfessorById(Long professorId) {
-		return disciplinaTurmaRepository.findDisciplinaTurmaByprofessor_id(professorId);
+
+	public Aula getDisciplinaTurmaAulaDoDia(Long disciplinaTurmaID, String data) {
+		try {
+			DisciplinaTurma disciplinaTurma = disciplinaTurmaRepository.findById(disciplinaTurmaID).orElse(null);
+			if (disciplinaTurma != null) {
+				for (Aula aula : disciplinaTurma.getAulas()) {
+					if (data.equals(aula.getData())) {
+						return aula;
+					}
+				}
+			}
+			return null;
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+
+	public List<Object> getDisciplinasProfessorById(Long professorId) {
+		List<DisciplinaTurma> listDisciplinaTurma = disciplinaTurmaRepository
+				.findDisciplinaTurmaByprofessor_id(professorId);
+		List<Object> listaRetorno = new ArrayList<>();
+
+		ObjectMapper objMapper = new ObjectMapper();
+		ObjectNode objNode = objMapper.createObjectNode();
+
+		if (listaRetorno.isEmpty()) {
+			for (DisciplinaTurma dispTurma : listDisciplinaTurma) {
+				JsonNode node = objMapper.valueToTree(dispTurma);
+				objNode.set("disciplina", node);
+				objNode.put("turma", dispTurma.getTurma().getNome());
+				System.out.println(dispTurma.getTurma().getNome());
+				listaRetorno.add(objNode);
+			}
+		} else {
+			listaRetorno.add(objNode.put("message", "Nao existem disciplinas"));
+		}
+		return listaRetorno;
 	}
 }

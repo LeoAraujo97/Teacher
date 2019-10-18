@@ -20,10 +20,10 @@ public class Professor implements Serializable {
 
 	@JsonProperty("nome")
 	private String nome;
-	
+
 	@JsonProperty("email")
 	private String email;
-	
+
 	@JsonProperty("senha")
 	private String senha;
 
@@ -60,5 +60,5 @@ public class Professor implements Serializable {
 		this.senha = senha;
 	}
 
-	
+
 }

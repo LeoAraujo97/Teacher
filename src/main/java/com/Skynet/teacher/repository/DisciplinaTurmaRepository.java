@@ -11,4 +11,5 @@ import com.Skynet.teacher.entities.DisciplinaTurma;
 public interface DisciplinaTurmaRepository extends JpaRepository<DisciplinaTurma, Long> {
 
 	public List<DisciplinaTurma> findDisciplinaTurmaByprofessor_id(Long professorId);
+
 }

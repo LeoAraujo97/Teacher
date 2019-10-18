@@ -36,14 +36,14 @@ public class Aluno implements Serializable {
 	@JoinColumn(name = "turma_id")
 	@JsonBackReference
 	private Turma turma;
-	
+
 	@ManyToMany
 	@JoinTable(name = "presenca", joinColumns = { @JoinColumn(name = "aluno_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "aula_id") })
 	@JsonProperty("presenca")
 	private List<Aula> aulas;
 
-	
+
 
 	public long getRa() {
 		return this.ra;

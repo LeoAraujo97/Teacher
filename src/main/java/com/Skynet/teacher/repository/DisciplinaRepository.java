@@ -8,7 +8,7 @@ import com.Skynet.teacher.entities.Disciplina;
 
 @Repository
 public interface DisciplinaRepository extends JpaRepository<Disciplina, Long>{
-    
+
     @Query(value = "SELECT * FROM Disciplina Where Nome = ?1", nativeQuery = true)
 	public Disciplina encontrarDisciplinaPorNome(String nome);
 }
