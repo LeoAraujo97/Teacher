@@ -31,6 +31,21 @@ public class Aula implements Serializable {
 	@JsonProperty("horario")
 	private String horario;
 
+	@JsonProperty("ocorrida")
+	private boolean ocorrida;
+
+	public boolean isOcorrida() {
+		return this.ocorrida;
+	}
+
+	public boolean getOcorrida() {
+		return this.ocorrida;
+	}
+
+	public void setOcorrida(boolean ocorrida) {
+		this.ocorrida = ocorrida;
+	}
+
 	public long getId() {
 		return this.id;
 	}

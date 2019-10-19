@@ -1,5 +1,12 @@
 package com.Skynet.teacher.controller;
 
+import java.util.List;
+
+import com.Skynet.teacher.entities.Aluno;
+import com.Skynet.teacher.service.AlunoService;
+import com.Skynet.teacher.service.AulaService;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,18 +15,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-
-import com.Skynet.teacher.entities.Aluno;
-import com.Skynet.teacher.service.AlunoService;
 
 @RestController
 @RequestMapping("/api")
 public class AlunoController {
 	@Autowired
 	private AlunoService alunoServ;
+
+	@Autowired
+	private AulaService aulaServ;
 
 	@RequestMapping(value = "/alunos/", method = RequestMethod.GET)
 	public ResponseEntity<?> listAlunos() {
@@ -47,12 +53,27 @@ public class AlunoController {
 		}
 		return new ResponseEntity<Aluno>(alunoInserted, HttpStatus.CREATED);
 	}
+
 	@GetMapping("aluno/presenca/{id}")
-	public ResponseEntity<?> alunoPresenca(@PathVariable("id") long id){
+	public ResponseEntity<?> alunoPresenca(@PathVariable("id") long id) {
 		Aluno aluno = alunoServ.encontrarPresencaDoAluno(id);
 		if (aluno == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
 	}
+
+	@GetMapping("aluno/presencaDisciplina/{id}")
+	public ResponseEntity<?> alunoPresencaDisciplina(@PathVariable("id") long id,
+			@RequestParam("disciplinaTurmaId") long disciplinaTurmaId) {
+
+		try {
+			ObjectNode statusPresenca = aulaServ.listarQuantidadePresencaAlunoDisciplina(disciplinaTurmaId, id);
+			return new ResponseEntity<ObjectNode>(statusPresenca, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
 }
