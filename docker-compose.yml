@@ -1,0 +1,40 @@
+version: '3.3'
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: my_sql
+    networks:
+        - teacher-net
+    volumes:
+        - mysql-data:/var/lib/mysql
+    environment:
+        MYSQL_DATABASE: chamadaAlunos
+        MYSQL_ROOT_PASSWORD: root
+    ports:
+        - "3306:3306"
+  application:
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    build: .
+    networks:
+      - teacher-net
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DB_USERNAME: root
+      MYSQL_DB_PASSWORD: root
+      MYSQL_DATABASE: chamadaAlunos
+      HIBERNATE_HBM2LL: update
+
+volumes:
+  mysql-data:
+    driver: local
+
+networks:
+  teacher-net:
+    driver: bridge
