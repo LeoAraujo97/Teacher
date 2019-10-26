@@ -2,6 +2,7 @@ package com.Skynet.teacher.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.Skynet.teacher.entities.Administrador;
 import com.Skynet.teacher.entities.Aluno;
 import com.Skynet.teacher.entities.Professor;
 import com.Skynet.teacher.service.LoginService;
@@ -41,9 +42,14 @@ public class LoginController {
                 objNode.put("email", aluno.getNome());
                 objNode.put("turma_id", aluno.getTurma().getId());
                 return new ResponseEntity<ObjectNode>(objNode, HttpStatus.OK);
-            } else {
+            } else if(obj instanceof Professor) {
                 return new ResponseEntity<Professor>((Professor) obj, HttpStatus.OK);
-
+            }
+            else{
+                Administrador administrador =(Administrador)obj;
+                objNode.put("email",administrador.getEmail());
+                
+                return new ResponseEntity<ObjectNode>(objNode, HttpStatus.OK);
             }
 
         }
