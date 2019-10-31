@@ -2,11 +2,12 @@ package com.Skynet.teacher.service;
 
 import java.util.List;
 
+import com.Skynet.teacher.entities.Aluno;
+import com.Skynet.teacher.entities.Presenca;
+import com.Skynet.teacher.repository.AlunoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.Skynet.teacher.entities.Aluno;
-import com.Skynet.teacher.repository.AlunoRepository;
 
 @Service
 public class AlunoService {
@@ -61,7 +62,7 @@ public class AlunoService {
 
 	}
 
-	public Aluno encontrarPresencaDoAluno(Long id ){
+	public Aluno encontrarPresencaDoAluno(Long id) {
 		try {
 			Aluno aluno = alunoRepository.encontrarPresencaDoAluno(id);
 			return aluno;
@@ -70,5 +71,21 @@ public class AlunoService {
 			return null;
 		}
 
+	}
+
+	public Boolean inserirPresenca(Long alunoId, Long aulaId) {
+		try {
+			Object presecaExistente = alunoRepository.encontraPresencaPorAulaEAluno(alunoId, aulaId);
+			if (presecaExistente != null) {
+				return false;
+			}
+
+			alunoRepository.InserirPresenca(alunoId, aulaId);
+
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
 	}
 }
