@@ -6,7 +6,6 @@ import com.Skynet.teacher.entities.Aluno;
 import com.Skynet.teacher.entities.Presenca;
 import com.Skynet.teacher.service.AlunoService;
 import com.Skynet.teacher.service.AulaService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
