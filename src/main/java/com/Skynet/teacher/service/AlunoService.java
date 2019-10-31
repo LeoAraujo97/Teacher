@@ -3,7 +3,6 @@ package com.Skynet.teacher.service;
 import java.util.List;
 
 import com.Skynet.teacher.entities.Aluno;
-import com.Skynet.teacher.entities.Presenca;
 import com.Skynet.teacher.repository.AlunoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

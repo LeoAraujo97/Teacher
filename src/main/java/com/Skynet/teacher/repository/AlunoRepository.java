@@ -5,7 +5,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.Skynet.teacher.entities.Aluno;
-import com.Skynet.teacher.entities.Presenca;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
