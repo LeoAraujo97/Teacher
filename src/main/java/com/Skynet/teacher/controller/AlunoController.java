@@ -3,6 +3,7 @@ package com.Skynet.teacher.controller;
 import java.util.List;
 
 import com.Skynet.teacher.entities.Aluno;
+import com.Skynet.teacher.entities.Presenca;
 import com.Skynet.teacher.service.AlunoService;
 import com.Skynet.teacher.service.AulaService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,6 +76,20 @@ public class AlunoController {
 			return new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+
+	@PostMapping("aluno/presenca")
+	public ResponseEntity<?> presencaAluno(@RequestBody Presenca presenca) {
+		try {
+			Boolean inseriuPresenca = alunoServ.inserirPresenca(presenca.getAluno_id(), presenca.getAula_id());
+			if (!inseriuPresenca) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			return new ResponseEntity<>(HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			return new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

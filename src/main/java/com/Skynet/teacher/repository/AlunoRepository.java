@@ -2,11 +2,15 @@ package com.Skynet.teacher.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import javax.transaction.Transactional;
 
 import com.Skynet.teacher.entities.Aluno;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
@@ -18,6 +22,15 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
 	public Aluno findAlunoByEmailAndSenha(String email, String senha);
 
-	@Query(value = "SELECT * FROM Aluno A JOIN presenca B on A.ra =B.aluno_id where A.ra = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM aluno A JOIN presenca B on A.ra =B.aluno_id where A.ra = ?1", nativeQuery = true)
 	public Aluno encontrarPresencaDoAluno(Long id);
+
+	@Transactional
+	@Modifying
+	@Query(value = "INSERT INTO presenca (aluno_id,aula_id) select :aluno_id,:aula_id", nativeQuery = true)
+	public void InserirPresenca(@Param("aluno_id")Long alunoId,@Param("aula_id")Long aulaId);
+
+	@Query(value = "SELECT * FROM presenca WHERE aluno_id =?1 and aula_id =?2", nativeQuery = true)
+	public Object encontraPresencaPorAulaEAluno(Long aluno_id, Long aula_id);
+
 }
