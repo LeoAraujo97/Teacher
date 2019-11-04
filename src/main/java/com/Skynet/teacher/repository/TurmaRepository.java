@@ -8,6 +8,6 @@ import com.Skynet.teacher.entities.Turma;
 
 @Repository
 public interface TurmaRepository  extends JpaRepository<Turma, Long> {
-    @Query(value = "SELECT * FROM TURMA WHERE nome =?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM turma WHERE nome =?1", nativeQuery = true)
     public Turma encontrarTurmaPorNome(String nome);
 }
