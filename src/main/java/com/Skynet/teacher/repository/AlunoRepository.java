@@ -14,10 +14,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
-	@Query(value = "SELECT * FROM Aluno", nativeQuery = true)
+	@Query(value = "SELECT * FROM aluno", nativeQuery = true)
 	public List<Aluno> listarAlunos();
 
-	@Query(value = "SELECT * FROM ALUNO WHERE EMAIL =?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM aluno WHERE email =?1", nativeQuery = true)
 	public Aluno encontrarAlunoPorEmail(String email);
 
 	public Aluno findAlunoByEmailAndSenha(String email, String senha);

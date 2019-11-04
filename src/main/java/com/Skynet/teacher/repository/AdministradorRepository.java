@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdministradorRepository extends JpaRepository<Administrador, Long> {
     
-    @Query(value = "SELECT * FROM ADMINISTRADOR WHERE EMAIL =?1 AND SENHA =?2", nativeQuery = true)
+    @Query(value = "SELECT * FROM administrador WHERE email =?1 AND senha =?2", nativeQuery = true)
     public Administrador findAdministradorByEmailAndSenha(String email, String senha);
 
     public Administrador findAdministradorByEmail(String email);
