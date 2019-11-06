@@ -87,4 +87,19 @@ public class AlunoService {
 			return false;
 		}
 	}
+	public Boolean deletarPresenca(Long alunoId, Long aulaId) {
+		try {
+			Object presecaExistente = alunoRepository.encontraPresencaPorAulaEAluno(alunoId, aulaId);
+			if (presecaExistente == null) {
+				return false;
+			}
+
+			alunoRepository.deletarPresenca(alunoId, aulaId);
+
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
 }
