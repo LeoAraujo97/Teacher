@@ -52,6 +52,19 @@ public class AulaService {
             throw e;
         }
     }
-    
+
+    public Aula aulaById(Long aulaId) {
+        try {
+            Aula aulaExistente = aulaRepository.findById(aulaId).orElse(null);
+            return aulaExistente;
+
+        } catch (Exception e) {
+            return new Aula();
+        }
+    }
+
+    public Aula insertAula(Aula aula) {
+        return aulaRepository.save(aula);
+    }
 
 }
