@@ -60,18 +60,6 @@ public class AlunoService {
 		}
 
 	}
-	
-	public Aluno encontrarAlunoPorEmail(String email) {
-		try {
-			Aluno aluno = alunoRepository.findAlunoByEmail(email);
-			System.out.println(aluno.getNome());
-			return aluno;
-		} catch (Exception e) {
-			System.out.println(e);
-			return null;
-		}
-
-	}
 
 	public Aluno encontrarPresencaDoAluno(Long id) {
 		try {
@@ -92,21 +80,6 @@ public class AlunoService {
 			}
 
 			alunoRepository.InserirPresenca(alunoId, aulaId);
-
-			return true;
-		} catch (Exception e) {
-			System.out.println(e);
-			return false;
-		}
-	}
-	public Boolean deletarPresenca(Long alunoId, Long aulaId) {
-		try {
-			Object presecaExistente = alunoRepository.encontraPresencaPorAulaEAluno(alunoId, aulaId);
-			if (presecaExistente == null) {
-				return false;
-			}
-
-			alunoRepository.deletarPresenca(alunoId, aulaId);
 
 			return true;
 		} catch (Exception e) {

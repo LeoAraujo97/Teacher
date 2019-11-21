@@ -1,5 +1,7 @@
 package com.Skynet.teacher.service;
 
+import java.util.List;
+
 import com.Skynet.teacher.entities.Disciplina;
 import com.Skynet.teacher.repository.DisciplinaRepository;
 
@@ -28,5 +30,18 @@ public class DisciplinaService {
             throw e;
         }
     }
+
+    public List<Disciplina> listarDisplinas() {
+		try {
+			List<Disciplina> disciplinas = disciplinaRepository.findAll();
+			if (!disciplinas.isEmpty())
+				return disciplinas;
+
+			return null;
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 
 }

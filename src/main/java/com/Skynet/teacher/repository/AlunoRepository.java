@@ -21,8 +21,6 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	public Aluno encontrarAlunoPorEmail(String email);
 
 	public Aluno findAlunoByEmailAndSenha(String email, String senha);
-	
-	public Aluno findAlunoByEmail(String email);
 
 	@Query(value = "SELECT * FROM aluno A JOIN presenca B on A.ra =B.aluno_id where A.ra = ?1", nativeQuery = true)
 	public Aluno encontrarPresencaDoAluno(Long id);
@@ -35,8 +33,4 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	@Query(value = "SELECT * FROM presenca WHERE aluno_id =?1 and aula_id =?2", nativeQuery = true)
 	public Object encontraPresencaPorAulaEAluno(Long aluno_id, Long aula_id);
 
-	@Transactional
-	@Modifying
-	@Query(value = "DELETE FROM presenca WHERE aluno_id =?1 and aula_id =?2", nativeQuery = true)
-	public void deletarPresenca(Long aluno_id, Long aula_id);
 }
