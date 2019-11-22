@@ -96,18 +96,22 @@ public class DisciplinaTurmaService {
 				.findDisciplinaTurmaByprofessor_id(professorId);
 		List<Object> listaRetorno = new ArrayList<>();
 
-		ObjectMapper objMapper = new ObjectMapper();
-		ObjectNode objNode = objMapper.createObjectNode();
-
 		if (listaRetorno.isEmpty()) {
 			for (DisciplinaTurma dispTurma : listDisciplinaTurma) {
+
+				System.out.println(dispTurma.getDisciplina().getNome());
+				ObjectMapper objMapper = new ObjectMapper();
+				ObjectNode objNode = objMapper.createObjectNode();
 				JsonNode node = objMapper.valueToTree(dispTurma);
+
 				objNode.set("disciplina", node);
 				objNode.put("turma", dispTurma.getTurma().getNome());
 				System.out.println(dispTurma.getTurma().getNome());
 				listaRetorno.add(objNode);
 			}
 		} else {
+			ObjectMapper objMapper = new ObjectMapper();
+			ObjectNode objNode = objMapper.createObjectNode();
 			listaRetorno.add(objNode.put("message", "Nao existem disciplinas"));
 		}
 		return listaRetorno;

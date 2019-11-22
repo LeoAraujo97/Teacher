@@ -21,8 +21,6 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	public Aluno encontrarAlunoPorEmail(String email);
 
 	public Aluno findAlunoByEmailAndSenha(String email, String senha);
-	
-	public Aluno findAlunoByEmail(String email);
 
 	@Query(value = "SELECT * FROM aluno A JOIN presenca B on A.ra =B.aluno_id where A.ra = ?1", nativeQuery = true)
 	public Aluno encontrarPresencaDoAluno(Long id);
