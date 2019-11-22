@@ -2,6 +2,7 @@ package com.Skynet.teacher.controller;
 
 import java.util.List;
 
+import com.Skynet.teacher.entities.Aluno;
 import com.Skynet.teacher.entities.Aula;
 import com.Skynet.teacher.entities.DisciplinaTurma;
 import com.Skynet.teacher.service.DisciplinaTurmaService;
@@ -102,6 +103,20 @@ public class DisciplinaTurmaController {
         } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<Exception>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/disciplinaTurma/alunos/{id}/")
+    public ResponseEntity<?> listarAulnos(@PathVariable("id") Long disciplinaTurma,
+            @RequestParam("data") String data) {
+        try {
+            List<Aluno> alunos = disciplinaTurmaService.disciplinaTurmaAlunos(data, disciplinaTurma);
+            if (alunos.isEmpty() || alunos == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<List<Aluno>>(alunos, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -39,4 +39,7 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	@Modifying
 	@Query(value = "DELETE FROM presenca WHERE aluno_id =?1 and aula_id =?2", nativeQuery = true)
 	public void deletarPresenca(Long aluno_id, Long aula_id);
+
+	@Query(value = "Select * from aluno where turma_id = ?1", nativeQuery = true)
+	public List<Aluno> findAlunobyTurmaId(Long id);
 }

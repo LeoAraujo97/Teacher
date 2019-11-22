@@ -3,9 +3,14 @@ package com.Skynet.teacher.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.Skynet.teacher.entities.Aluno;
 import com.Skynet.teacher.entities.Aula;
 import com.Skynet.teacher.entities.DisciplinaTurma;
+import com.Skynet.teacher.entities.Turma;
+import com.Skynet.teacher.repository.AlunoRepository;
+import com.Skynet.teacher.repository.AulaRepository;
 import com.Skynet.teacher.repository.DisciplinaTurmaRepository;
+import com.Skynet.teacher.repository.TurmaRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -17,6 +22,12 @@ import org.springframework.stereotype.Service;
 public class DisciplinaTurmaService {
 	@Autowired
 	private DisciplinaTurmaRepository disciplinaTurmaRepository;
+	@Autowired
+	private TurmaRepository turmaRepository;
+	@Autowired
+	private AulaRepository aulaRepository;
+	@Autowired
+	private AlunoRepository alunoRepository;
 
 	public List<DisciplinaTurma> listAll() {
 		try {
@@ -100,5 +111,18 @@ public class DisciplinaTurmaService {
 			listaRetorno.add(objNode.put("message", "Nao existem disciplinas"));
 		}
 		return listaRetorno;
+	}
+
+	public List<Aluno> disciplinaTurmaAlunos(String data, Long id) {
+		try {
+			DisciplinaTurma disciplinaTurma = disciplinaTurmaRepository.findById(id).orElse(null);
+			Long turmaId = disciplinaTurma.getTurma().getId();
+
+			Turma turma = turmaRepository.findById(turmaId).orElse(null);
+			return turma.getAlunos();
+
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

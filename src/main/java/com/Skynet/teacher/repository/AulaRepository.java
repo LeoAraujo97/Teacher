@@ -12,4 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface AulaRepository extends JpaRepository<Aula, Long> {
     @Query(value = "SELECT * FROM aula WHERE disciplina_turma_id =?1 AND ocorrida=1", nativeQuery = true)
     public List<Aula> encontrarAulaPelaDisciplinaTurma(long turmaDisciplinaId);
+
+    @Query(value = "SELECT * FROM aula WHERE disciplina_turma_id =?1 and data = ?2 ", nativeQuery = true)
+    public List<Aula> FindAulaByDisciplinaTurmaAndDate(long turmaDisciplinaId, String data);
 }
