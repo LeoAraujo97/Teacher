@@ -67,4 +67,13 @@ public class AulaService {
         return aulaRepository.save(aula);
     }
 
+    public Boolean alterarAula(Long id) {
+        try {
+            aulaRepository.aulaOcorrida(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

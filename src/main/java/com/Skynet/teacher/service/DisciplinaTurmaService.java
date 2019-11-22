@@ -7,8 +7,6 @@ import com.Skynet.teacher.entities.Aluno;
 import com.Skynet.teacher.entities.Aula;
 import com.Skynet.teacher.entities.DisciplinaTurma;
 import com.Skynet.teacher.entities.Turma;
-import com.Skynet.teacher.repository.AlunoRepository;
-import com.Skynet.teacher.repository.AulaRepository;
 import com.Skynet.teacher.repository.DisciplinaTurmaRepository;
 import com.Skynet.teacher.repository.TurmaRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -24,10 +22,6 @@ public class DisciplinaTurmaService {
 	private DisciplinaTurmaRepository disciplinaTurmaRepository;
 	@Autowired
 	private TurmaRepository turmaRepository;
-	@Autowired
-	private AulaRepository aulaRepository;
-	@Autowired
-	private AlunoRepository alunoRepository;
 
 	public List<DisciplinaTurma> listAll() {
 		try {
