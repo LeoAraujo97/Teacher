@@ -20,7 +20,7 @@ public class AulaController {
     @Autowired
     private AulaService aulaService;
 
-    @PostMapping()
+    @PostMapping("/aula/")
     public ResponseEntity<?> inserirAula(@RequestBody Aula aula) {
         try {
             if (aula.getId() != 0) {
