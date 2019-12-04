@@ -28,7 +28,7 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	@Transactional
 	@Modifying
 	@Query(value = "INSERT INTO presenca (aluno_id,aula_id) select :aluno_id,:aula_id", nativeQuery = true)
-	public void InserirPresenca(@Param("aluno_id")Long alunoId,@Param("aula_id")Long aulaId);
+	public void InserirPresenca(@Param("aluno_id") Long alunoId, @Param("aula_id") Long aulaId);
 
 	@Query(value = "SELECT * FROM presenca WHERE aluno_id =?1 and aula_id =?2", nativeQuery = true)
 	public Object encontraPresencaPorAulaEAluno(Long aluno_id, Long aula_id);
@@ -40,4 +40,6 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
 	@Query(value = "Select * from aluno where turma_id = ?1", nativeQuery = true)
 	public List<Aluno> findAlunobyTurmaId(Long id);
+
+	public Aluno findAlunoByEmail(String email);
 }

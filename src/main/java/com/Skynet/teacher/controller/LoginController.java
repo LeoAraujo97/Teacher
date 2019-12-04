@@ -42,13 +42,12 @@ public class LoginController {
                 objNode.put("email", aluno.getNome());
                 objNode.put("turma_id", aluno.getTurma().getId());
                 return new ResponseEntity<ObjectNode>(objNode, HttpStatus.OK);
-            } else if(obj instanceof Professor) {
+            } else if (obj instanceof Professor) {
                 return new ResponseEntity<Professor>((Professor) obj, HttpStatus.OK);
-            }
-            else{
-                Administrador administrador =(Administrador)obj;
-                objNode.put("email",administrador.getEmail());
-                
+            } else {
+                Administrador administrador = (Administrador) obj;
+                objNode.put("email", administrador.getEmail());
+
                 return new ResponseEntity<ObjectNode>(objNode, HttpStatus.OK);
             }
 
@@ -56,4 +55,27 @@ public class LoginController {
         objNode.put("message", "Unable to find user");
         return new ResponseEntity<ObjectNode>(objNode, HttpStatus.UNAUTHORIZED);
     }
+
+    @PostMapping("/login/gmail")
+    public ResponseEntity<?> realizarLoginGmail(@RequestBody String body, HttpServletRequest request) {
+        Object obj = loginService.realizarLoginGmail(body);
+
+        ObjectMapper objMapper = new ObjectMapper();
+        ObjectNode objNode = objMapper.createObjectNode();
+
+        if (obj != null) {
+            request.getSession().setAttribute("usuarioLogado", true);
+            if (obj instanceof Aluno) {
+                Aluno aluno = (Aluno) obj;
+                objNode.put("ra", aluno.getRa());
+                objNode.put("nome", aluno.getNome());
+                objNode.put("email", aluno.getNome());
+                objNode.put("turma_id", aluno.getTurma().getId());
+                return new ResponseEntity<ObjectNode>(objNode, HttpStatus.OK);
+            }
+        }
+        objNode.put("message", "Unable to find user");
+        return new ResponseEntity<ObjectNode>(objNode, HttpStatus.UNAUTHORIZED);
+    }
+
 }

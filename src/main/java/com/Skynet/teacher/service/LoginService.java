@@ -37,4 +37,16 @@ public class LoginService {
         }
         return obj;
     }
+    public Object realizarLoginGmail(String body) {
+        ObjectMapper mapper = new ObjectMapper();
+        Object obj = null;
+        System.out.println(body);
+        try {
+            Login login = mapper.readValue(body, Login.class);
+            obj = alunoService.encontrarAlunoPorEmail(login.getUsuario());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return obj;
+    }
 }

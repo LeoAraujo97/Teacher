@@ -105,4 +105,15 @@ public class AlunoService {
 			return false;
 		}
 	}
+	public Aluno encontrarAlunoPorEmail(String email) {
+		try {
+			Aluno aluno = alunoRepository.findAlunoByEmail(email);
+			System.out.println(aluno.getNome());
+			return aluno;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+
+	}
 }
