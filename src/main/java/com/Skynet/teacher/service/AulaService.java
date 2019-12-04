@@ -76,4 +76,10 @@ public class AulaService {
         }
     }
 
+    public Boolean aulaPreviamenteCadastrada(String data) {
+
+        return aulaRepository.aulaPreviamenteCadastrada(data.trim());
+
+    }
+
 }

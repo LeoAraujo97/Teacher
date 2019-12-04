@@ -22,5 +22,10 @@ public interface AulaRepository extends JpaRepository<Aula, Long> {
     @Transactional
 	@Modifying
 	@Query(value = "UPDATE AULA SET OCORRIDA = 1 WHERE id =?1 ", nativeQuery = true)
-	public void aulaOcorrida(Long aula_id);
+    public void aulaOcorrida(Long aula_id);
+    @Transactional
+    
+    @Modifying
+	@Query(value = "Select * from aula  WHERE RTRIM(LTRIM(data)) = ?1 ", nativeQuery = true)
+	public Boolean aulaPreviamenteCadastrada(String data);
 }
