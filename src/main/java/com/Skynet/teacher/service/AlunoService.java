@@ -72,19 +72,20 @@ public class AlunoService {
 
 	}
 
-	public Boolean inserirPresenca(Long alunoId, Long aulaId) {
+	public Integer inserirPresenca(Long alunoId, Long aulaId) {
 		try {
 			Object presecaExistente = alunoRepository.encontraPresencaPorAulaEAluno(alunoId, aulaId);
 			if (presecaExistente != null) {
-				return false;
+				return 0;
 			}
 
 			alunoRepository.InserirPresenca(alunoId, aulaId);
-
-			return true;
+			Integer quantidade = alunoRepository.quantidadePresentes(aulaId);
+		
+			return quantidade;
 		} catch (Exception e) {
 			System.out.println(e);
-			return false;
+			return 0;
 		}
 	}
 
@@ -105,6 +106,7 @@ public class AlunoService {
 			return false;
 		}
 	}
+
 	public Aluno encontrarAlunoPorEmail(String email) {
 		try {
 			Aluno aluno = alunoRepository.findAlunoByEmail(email);
