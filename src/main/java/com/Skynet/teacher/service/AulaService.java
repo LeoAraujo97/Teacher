@@ -76,9 +76,18 @@ public class AulaService {
         }
     }
 
-    public Boolean aulaPreviamenteCadastrada(String data) {
+    public Boolean aulaPreviamenteCadastrada(Long id, String data) {
+        try {
+            List<Aula> aula = aulaRepository.aulaPreviamenteCadastrada(id, data);
+            if (aula != null && aula.size()>0) {
+                return true;
+            }
+            return false;
 
-        return aulaRepository.aulaPreviamenteCadastrada(data.trim());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
 
     }
 

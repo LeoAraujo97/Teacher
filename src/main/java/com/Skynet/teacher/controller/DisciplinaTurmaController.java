@@ -112,7 +112,7 @@ public class DisciplinaTurmaController {
     @GetMapping("/disciplinaTurma/alunos/{id}/")
     public ResponseEntity<?> listarAulnos(@PathVariable("id") Long disciplinaTurma, @RequestParam("data") String data) {
         try {
-            if (aulaService.aulaPreviamenteCadastrada(data)) {
+            if (aulaService.aulaPreviamenteCadastrada(disciplinaTurma, data)) {
                 List<Aluno> alunos = disciplinaTurmaService.disciplinaTurmaAlunos(data, disciplinaTurma);
                 if (alunos.isEmpty() || alunos == null) {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
