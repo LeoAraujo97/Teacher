@@ -72,20 +72,19 @@ public class AlunoService {
 
 	}
 
-	public Integer inserirPresenca(Long alunoId, Long aulaId) {
+	public Boolean inserirPresenca(Long alunoId, Long aulaId) {
 		try {
 			Object presecaExistente = alunoRepository.encontraPresencaPorAulaEAluno(alunoId, aulaId);
 			if (presecaExistente != null) {
-				return 0;
+				return false;
 			}
 
 			alunoRepository.InserirPresenca(alunoId, aulaId);
-			Integer quantidade = alunoRepository.quantidadePresentes(aulaId);
-		
-			return quantidade;
+
+			return true;
 		} catch (Exception e) {
 			System.out.println(e);
-			return 0;
+			return false;
 		}
 	}
 

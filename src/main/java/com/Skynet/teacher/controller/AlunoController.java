@@ -82,12 +82,12 @@ public class AlunoController {
 	@PostMapping("aluno/presenca")
 	public ResponseEntity<?> presencaAluno(@RequestBody Presenca presenca) {
 		try {
-			Integer inseriuPresenca = alunoServ.inserirPresenca(presenca.getAluno_id(), presenca.getAula_id());
-			if (inseriuPresenca == 0) {
+			Boolean inseriuPresenca = alunoServ.inserirPresenca(presenca.getAluno_id(), presenca.getAula_id());
+			if (!inseriuPresenca) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 
-			return new ResponseEntity<>(inseriuPresenca,HttpStatus.CREATED);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 
 		} catch (Exception e) {
 			return new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
